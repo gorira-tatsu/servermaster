@@ -1,0 +1,24 @@
+# Use root/example as user/password credentials
+version: '3.1'
+
+services:
+  web:
+    build: .
+    volumes:
+      - .:/servercoins
+    ports:
+      - 5000:5000
+
+  db:
+    image: mysql
+    command: --default-authentication-plugin=mysql_native_password
+    restart: always
+    environment:
+      MYSQL_DATABASE: servercoins
+      MYSQL_USER: debuger
+      MYSQL_PASSWORD: password
+      MYSQL_ROOT_PASSWORD: RP67UxCyZ4204pl4
+    volumes:
+      - ./docker/mysql/initdb.d:/docker-entrypoint-initdb.d
+    ports:
+      - 4000:3306
